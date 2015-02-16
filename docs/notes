@@ -1,0 +1,42 @@
+--Notes--
+
+
+Automator has
+	Set of events it is waiting for triggers from
+	Set of rules for the events
+	Set of actions that run when a corresponding rule evaluates to true
+
+Event Monitors have
+	A pointer to a function to call when something fires
+	Some kind of watcher -- something that polls the filesystem, the network, etc.
+	A "last call" property which is the last time that function was called
+	A "on change" property which is particular to that even (e.g. fire only on change)
+	...
+
+Actions have
+	A set of instructions (code) that they will execute when told.
+	Optionally a set of events to trigger
+
+Process flow
+	Automator starts
+	automator starts the event monitors giving the automators "event fired" function
+	events do their thing, calling the "event fired" function given to them if an event is fired
+	the automator gets a call to "event fired"
+	The automator evaluates all rules containing that event
+	Whichever rules evaluate to true, automator fires their action(s)
+
+
+v0.1 Requirements
+
+- Automator in place doing basic things
+- Filesystem Event Monitor (like logs from shairplay)
+- Network Event Monitor
+- System command action
+- Tests for everything
+
+v0.2 Requirements
+- RESTful event monitor (use push! No polling!)
+
+v0.3 Requirements
+- Config file-ize everything
+
