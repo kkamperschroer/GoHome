@@ -12,8 +12,8 @@ type Automator struct {
 
 func (a *Automator) Init() {
 	fmt.Println("In automator init")
-	events.Init()
-	actions.Init()
+	a.events.Init()
+	a.actions.Init()
 
 	// TODO -- Read in the events and actions from some config
 
