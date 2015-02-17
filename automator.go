@@ -10,20 +10,25 @@ type Automator struct {
 	actions list.List
 }
 
-func (a *Automator) Init() {
+func (automator *Automator) Init() {
 	fmt.Println("In automator init")
-	a.events.Init()
-	a.actions.Init()
+	automator.events.Init()
+	automator.actions.Init()
 
+	automator.BuildEvents();
+}
+
+func (automator *Automator) BuildEvents() {
 	// TODO -- Read in the events and actions from some config
-
-	a.buildEvents();
+	
+	sysCmd := new(SystemCommand)
+	sysCmd.Init()
+	automator.events.PushBack(sysCmd)
 }
 
-func (a *Automator) buildEvents() {
-	a.events.PushBack("test")
-}
-
-func (a *Automator) Run() {
+func (automator *Automator) Run() {
 	fmt.Println("In automator run")
+
 }
+
+
