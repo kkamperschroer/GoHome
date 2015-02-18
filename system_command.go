@@ -2,11 +2,13 @@ package main
 
 import(
 	"fmt";
+	"time";
 	)
 
 type SystemCommand struct {
-	Event // By doing thing, essentially inheriting from event
-
+	name string
+	lastFired time.Time
+	pollingInterval time.Time
 }
 
 func (systemCommand* SystemCommand) Init() {
@@ -15,3 +17,16 @@ func (systemCommand* SystemCommand) Init() {
 	fmt.Println("SystemCommand initialized.");
 }
 
+func (s* SystemCommand) GetName() string {
+	return s.name
+}
+
+func (s* SystemCommand) GetLastFired() time.Time {
+	return s.lastFired
+}
+
+func (s* SystemCommand) Fire() {
+	s.lastFired = time.Now()
+
+	fmt.Println("Firing system command!")
+}
