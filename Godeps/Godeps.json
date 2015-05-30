@@ -1,0 +1,5 @@
+{
+	"ImportPath": "github.com/kkamperschroer/GoHome",
+	"GoVersion": "go1.3.1",
+	"Deps": []
+}

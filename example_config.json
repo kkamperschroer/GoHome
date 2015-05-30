@@ -1,0 +1,48 @@
+{
+    "rules" : [
+        {
+            "name": "Comin' home jamz",
+            "description": "When I get home and Amanda's not home, play some music.",
+            "event": {
+                "description": "When I get home",
+                "plugin_id": "system",
+                "plugin_event_name": "system_event",
+                "config": {
+                    "polling_interval": "15s",
+                    "command": "nmap something something",
+                    "grep": "something to grep",
+                    "fire_on_exit_0": true,
+                    "fire_on_grep_match": true
+                }
+            },
+            "conditions": [
+                {
+                    "description": "Amanda's not home",
+                    "isAnd": true,
+                    "plugin_id": "system",
+                    "plugin_condition_name": "system_condition",
+                    "config": {
+                        "command": "nmap something something",
+                        "grep": "something to grep",
+                        "true_on_exit_0": false,
+                        "true_on_grep_match": true
+                    }
+                }
+            ],
+            "actions": [
+                {
+                    "description": "Play some music",
+                    "plugin_id": "system",
+                    "plugin_action_name": "system_action",
+                    "config": {
+                        "commands": [
+                            "echo 'on 5' | cec-client -s",
+                            "echo 'tx 4f 82 23 00' | cec-client -s",
+                            "nohup pianobar & > pianobar.out"
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}
