@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
 
@@ -25,7 +26,11 @@ func main() {
 	}
 
 	if *debug {
-		fmt.Printf("$v+\n", config)
+		bytes, err := json.MarshalIndent(config, "", "  ")
+
+		if err == nil {
+			fmt.Println(string(bytes))
+		}
 	}
 
 }
