@@ -6,7 +6,8 @@ import (
 )
 
 type Config struct {
-	Rules []RuleConfig `json:"rules"`
+	Rules   []RuleConfig   `json:"rules"`
+	Plugins []PluginConfig `json:"plugins"`
 }
 
 type RuleConfig struct {
@@ -39,6 +40,11 @@ type ActionConfig struct {
 	PluginId         string `json:"plugin_id"`
 	PluginActionName string `json:"plugin_action_name"`
 	Config           interface{}
+}
+
+type PluginConfig struct {
+	Name             string `json:"name"`
+	ManifestLocation string `json:"manifest_location"`
 }
 
 func LoadConfigData(filepath string) (*Config, error) {

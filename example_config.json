@@ -1,5 +1,5 @@
 {
-    "rules" : [
+    "rules": [
         {
             "name": "Comin' home jamz",
             "description": "When I get home and Amanda's not home, play some music.",
@@ -43,6 +43,12 @@
                     }
                 }
             ]
+        }
+    ],
+    "plugins": [
+        {
+            "name": "system",
+            "manifest_location": "./plugin_samples/system/manifest.json"
         }
     ]
 }

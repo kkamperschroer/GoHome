@@ -1,12 +1,13 @@
 package main
 
 import (
-	"encoding/json"
 	"flag"
-	"fmt"
+	"os"
 
 	"github.com/kkamperschroer/GoHome/config"
-	_ "github.com/kkamperschroer/GoHome/core"
+	"github.com/kkamperschroer/GoHome/core"
+
+	"github.com/pivotal-golang/lager"
 )
 
 var (
@@ -17,20 +18,28 @@ var (
 func main() {
 	flag.Parse()
 
-	fmt.Println("Welcome! Thanks for using GoHome!")
+	logger := lager.NewLogger("GoHome")
+	logLevel := lager.INFO
+
+	if *debug {
+		logLevel = lager.DEBUG
+	}
+
+	logger.RegisterSink(lager.NewWriterSink(os.Stdout, logLevel))
+
+	logger.Info("Welcome! Thanks for using GoHome!")
 
 	config, err := config.LoadConfigData(*configFilePath)
 
 	if err != nil {
-		fmt.Println("Failed to load your config:\n\t" + err.Error())
+		logger.Error("Failed to load your config", err)
 	}
 
-	if *debug {
-		bytes, err := json.MarshalIndent(config, "", "  ")
+	goHome, err := core.NewGoHome(config, logger)
 
-		if err == nil {
-			fmt.Println(string(bytes))
-		}
+	if err != nil {
+		logger.Error("Failed to initialize GoHome", err)
 	}
 
+	goHome.Go()
 }
