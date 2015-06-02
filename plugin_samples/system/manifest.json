@@ -1,3 +1,22 @@
 {
-	
+	"name": "system",
+	"version": "0.0.1",
+	"events": [
+		{
+			"name": "system_event",
+			"entry": "system_event.py"
+		}
+	],
+	"conditions": [
+		{
+			"name": "system_condition",
+			"entry": "system_condition.py"
+		}
+	],
+	"actions": [
+		{
+			"name": "system_action",
+			"entry": "system_action.py"
+		}
+	]
 }

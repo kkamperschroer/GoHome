@@ -2,6 +2,8 @@ package core
 
 import (
 	"github.com/kkamperschroer/GoHome/config"
+	"github.com/kkamperschroer/GoHome/models"
+	"github.com/kkamperschroer/GoHome/plugin_loader"
 	"github.com/pivotal-golang/lager"
 )
 
@@ -10,14 +12,23 @@ type GoHome interface {
 }
 
 type GoHomeInstance struct {
-	logger lager.Logger
+	logger  lager.Logger
+	plugins []models.Plugin
 }
 
 func NewGoHome(config *config.Config, logger lager.Logger) (GoHome, error) {
 	logger.Debug("Initializing GoHome")
 
+	pluginLoader := plugin_loader.NewPluginLoader(config, logger)
+	plugins, err := pluginLoader.LoadPlugins()
+
+	if err != nil {
+		logger.Error("Error loading plugins", err)
+	}
+
 	return &GoHomeInstance{
-		logger: logger,
+		logger:  logger,
+		plugins: plugins,
 	}, nil
 }
 

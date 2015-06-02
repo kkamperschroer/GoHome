@@ -1,10 +1,5 @@
 package config
 
-import (
-	"encoding/json"
-	"io/ioutil"
-)
-
 type Config struct {
 	Rules   []RuleConfig   `json:"rules"`
 	Plugins []PluginConfig `json:"plugins"`
@@ -48,13 +43,8 @@ type PluginConfig struct {
 }
 
 func LoadConfigData(filepath string) (*Config, error) {
-	configBytes, err := ioutil.ReadFile(filepath)
-	if err != nil {
-		return nil, err
-	}
-
 	var configData Config
-	err = json.Unmarshal(configBytes, &configData)
+	err := loadConfigIntoStruct(filepath, &configData)
 	if err != nil {
 		return nil, err
 	}
