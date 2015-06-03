@@ -45,10 +45,7 @@
             ]
         }
     ],
-    "plugins": [
-        {
-            "name": "system",
-            "manifest_location": "./plugin_samples/system/manifest.json"
-        }
-    ]
+    "plugins": {
+        "location": "./plugin_samples"
+    }
 }

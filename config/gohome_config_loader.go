@@ -1,8 +1,8 @@
 package config
 
 type Config struct {
-	Rules   []RuleConfig   `json:"rules"`
-	Plugins []PluginConfig `json:"plugins"`
+	Rules   []RuleConfig `json:"rules"`
+	Plugins PluginConfig `json:"plugins"`
 }
 
 type RuleConfig struct {
@@ -38,8 +38,7 @@ type ActionConfig struct {
 }
 
 type PluginConfig struct {
-	Name             string `json:"name"`
-	ManifestLocation string `json:"manifest_location"`
+	Location string `json:"location"`
 }
 
 func LoadConfigData(filepath string) (*Config, error) {
