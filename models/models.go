@@ -1,11 +1,12 @@
 package models
 
 type Plugin struct {
-	Name       string            `json:"name"`
-	Version    string            `json:"version"`
-	Events     []PluginEvent     `json:"events"`
-	Conditions []PluginCondition `json:"conditions"`
-	Actions    []PluginAction    `json:"actions"`
+	Name        string            `json:"name"`
+	Description string            `json:"description"`
+	Version     string            `json:"version"`
+	Events      []PluginEvent     `json:"events"`
+	Conditions  []PluginCondition `json:"conditions"`
+	Actions     []PluginAction    `json:"actions"`
 }
 
 type PluginEvent struct {

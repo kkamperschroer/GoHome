@@ -32,13 +32,13 @@ func main() {
 	config, err := config.LoadConfigData(*configFilePath)
 
 	if err != nil {
-		logger.Error("Failed to load your config", err)
+		logger.Fatal("Failed to load your config", err)
 	}
 
 	goHome, err := core.NewGoHome(config, logger)
 
 	if err != nil {
-		logger.Error("Failed to initialize GoHome", err)
+		logger.Fatal("Failed to initialize GoHome", err)
 	}
 
 	goHome.Go()

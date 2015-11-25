@@ -24,6 +24,17 @@ func NewGoHome(config *config.Config, logger lager.Logger) (GoHome, error) {
 
 	if err != nil {
 		logger.Error("Error loading plugins", err)
+		return nil, err
+	}
+
+	logger.Debug("Validating configuration...")
+
+	configValidator := config_validator.NewConfigValidator(config, plugins)
+	err = configValidator.ValidateConfig()
+
+	if err != nil {
+		logger.Error("Invalid configuration", err)
+		return nil, err
 	}
 
 	return &GoHomeInstance{

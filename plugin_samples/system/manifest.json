@@ -1,5 +1,6 @@
 {
 	"name": "system",
+	"description": "A prototyping plugin used for running system commands",
 	"version": "0.0.1",
 	"events": [
 		{
