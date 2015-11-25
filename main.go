@@ -41,5 +41,9 @@ func main() {
 		logger.Fatal("Failed to initialize GoHome", err)
 	}
 
-	goHome.Go()
+	err = goHome.Go()
+
+	if err != nil {
+		logger.Fatal("Error running GoHome", err)
+	}
 }

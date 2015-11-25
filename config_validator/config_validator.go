@@ -1,8 +1,6 @@
 package config_validator
 
 import (
-	"errors"
-
 	"github.com/kkamperschroer/GoHome/config"
 	"github.com/kkamperschroer/GoHome/models"
 )

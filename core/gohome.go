@@ -2,13 +2,15 @@ package core
 
 import (
 	"github.com/kkamperschroer/GoHome/config"
+	"github.com/kkamperschroer/GoHome/config_validator"
 	"github.com/kkamperschroer/GoHome/models"
 	"github.com/kkamperschroer/GoHome/plugin_loader"
 	"github.com/pivotal-golang/lager"
+	"time"
 )
 
 type GoHome interface {
-	Go()
+	Go() error
 }
 
 type GoHomeInstance struct {
@@ -37,12 +39,28 @@ func NewGoHome(config *config.Config, logger lager.Logger) (GoHome, error) {
 		return nil, err
 	}
 
+	pluginServer := plugin_loader.NewPluginServer(logger)
+	err = pluginServer.Start()
+
+	if err != nil {
+		logger.Error("Error starting up plugin server", err)
+		return nil, err
+	}
+
 	return &GoHomeInstance{
 		logger:  logger,
 		plugins: plugins,
 	}, nil
 }
 
-func (g *GoHomeInstance) Go() {
-	g.logger.Debug("GoHome started!")
+func (g *GoHomeInstance) Go() error {
+	g.logger.Debug("GoHome started! Waiting for events to fire...")
+
+	for {
+		// TODO -- how can i just wait for goroutines?
+		time.Sleep(2 * time.Minute)
+		g.logger.Info("GoHome sleeping...")
+	}
+
+	return nil
 }
