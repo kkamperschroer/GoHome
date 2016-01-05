@@ -5,19 +5,19 @@
 	"events": [
 		{
 			"name": "system_event",
-			"entry": "system_event.py"
+			"entry": "system.py"
 		}
 	],
 	"conditions": [
 		{
 			"name": "system_condition",
-			"entry": "system_condition.py"
+			"entry": "system.py"
 		}
 	],
 	"actions": [
 		{
 			"name": "system_action",
-			"entry": "system_action.py"
+			"entry": "system.py"
 		}
 	]
 }

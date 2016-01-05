@@ -58,7 +58,7 @@ func (g *goHome) Go() error {
 	g.logger.Debug("GoHome started! Waiting for events to fire...")
 
 	for {
-		// TODO -- how can i just wait for goroutines?
+		// TODO -- how can i just wait for goroutines? channels, dummy
 		time.Sleep(2 * time.Minute)
 		g.logger.Info("GoHome sleeping...")
 	}

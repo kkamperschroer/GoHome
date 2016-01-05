@@ -4,6 +4,8 @@ import (
 	"time"
 )
 
+// Models related to plugins
+
 type Plugin struct {
 	Name        string            `json:"name"`
 	Description string            `json:"description"`
@@ -29,6 +31,8 @@ type PluginComponent struct {
 	Name  string `json:"name"`
 	Entry string `json:"entry"`
 }
+
+// Models related to the GoHome rule engine
 
 type Action interface {
 	Description() string
