@@ -1,5 +1,9 @@
 package models
 
+import (
+	"time"
+)
+
 type Plugin struct {
 	Name        string            `json:"name"`
 	Description string            `json:"description"`
@@ -24,4 +28,26 @@ type PluginAction struct {
 type PluginComponent struct {
 	Name  string `json:"name"`
 	Entry string `json:"entry"`
+}
+
+type Action interface {
+	Description() string
+}
+
+type Condition interface {
+	IsAnd() bool
+	IsOrg() bool
+	IsNot() bool
+	Description() string
+}
+
+type Event interface {
+	LastFired() time.Time
+}
+
+type Rule interface {
+	Event() Event
+	Actions() []Action
+	Conditions() []Condition
+	Name() string
 }
