@@ -14,19 +14,19 @@ type PluginLoader interface {
 	LoadPlugins() ([]models.Plugin, error)
 }
 
-type PluginLoaderInstance struct {
+type pluginLoader struct {
 	config *config.Config
 	logger lager.Logger
 }
 
 func NewPluginLoader(config *config.Config, logger lager.Logger) PluginLoader {
-	return &PluginLoaderInstance{
+	return &pluginLoader{
 		config: config,
 		logger: logger,
 	}
 }
 
-func (p *PluginLoaderInstance) LoadPlugins() ([]models.Plugin, error) {
+func (p *pluginLoader) LoadPlugins() ([]models.Plugin, error) {
 	fileInfos, err := ioutil.ReadDir(p.config.Plugins.Location)
 	if err != nil {
 		return nil, err
@@ -57,7 +57,7 @@ func (p *PluginLoaderInstance) LoadPlugins() ([]models.Plugin, error) {
 	return returnPlugins, nil
 }
 
-func (p *PluginLoaderInstance) loadPlugin(dirPath string) (*models.Plugin, error) {
+func (p *pluginLoader) loadPlugin(dirPath string) (*models.Plugin, error) {
 	manifestLocation := filepath.Join(dirPath, "manifest.json")
 
 	plugin, err := config.LoadPluginManifest(manifestLocation)

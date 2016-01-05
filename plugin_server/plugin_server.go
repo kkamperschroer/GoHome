@@ -1,4 +1,4 @@
-package plugin_loader
+package plugin_server
 
 import (
 	"github.com/pivotal-golang/lager"
@@ -12,7 +12,7 @@ type PluginServer interface {
 	Test(string, *StringResponse) error
 }
 
-type PluginServerInstance struct {
+type pluginServer struct {
 	logger lager.Logger
 }
 
@@ -21,12 +21,12 @@ type StringResponse struct {
 }
 
 func NewPluginServer(logger lager.Logger) PluginServer {
-	return &PluginServerInstance{
+	return &pluginServer{
 		logger: logger,
 	}
 }
 
-func (p *PluginServerInstance) Start() error {
+func (p *pluginServer) Start() error {
 	p.logger.Debug("Starting plugin server...")
 
 	rpc.Register(p)
@@ -43,7 +43,7 @@ func (p *PluginServerInstance) Start() error {
 	return nil
 }
 
-func (p *PluginServerInstance) Test(request string, response *StringResponse) error {
+func (p *pluginServer) Test(request string, response *StringResponse) error {
 	p.logger.Debug("Plugin server received Test call: " + request)
 
 	response.StringResponse = "Hello from GoHome!"

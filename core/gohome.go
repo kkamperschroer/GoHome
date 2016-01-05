@@ -5,6 +5,7 @@ import (
 	"github.com/kkamperschroer/GoHome/config_validator"
 	"github.com/kkamperschroer/GoHome/models"
 	"github.com/kkamperschroer/GoHome/plugin_loader"
+	"github.com/kkamperschroer/GoHome/plugin_server"
 	"github.com/pivotal-golang/lager"
 	"time"
 )
@@ -13,7 +14,7 @@ type GoHome interface {
 	Go() error
 }
 
-type GoHomeInstance struct {
+type goHome struct {
 	logger  lager.Logger
 	plugins []models.Plugin
 }
@@ -39,7 +40,7 @@ func NewGoHome(config *config.Config, logger lager.Logger) (GoHome, error) {
 		return nil, err
 	}
 
-	pluginServer := plugin_loader.NewPluginServer(logger)
+	pluginServer := plugin_server.NewPluginServer(logger)
 	err = pluginServer.Start()
 
 	if err != nil {
@@ -47,13 +48,13 @@ func NewGoHome(config *config.Config, logger lager.Logger) (GoHome, error) {
 		return nil, err
 	}
 
-	return &GoHomeInstance{
+	return &goHome{
 		logger:  logger,
 		plugins: plugins,
 	}, nil
 }
 
-func (g *GoHomeInstance) Go() error {
+func (g *goHome) Go() error {
 	g.logger.Debug("GoHome started! Waiting for events to fire...")
 
 	for {
