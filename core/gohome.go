@@ -6,6 +6,7 @@ import (
 	"github.com/kkamperschroer/GoHome/models"
 	"github.com/kkamperschroer/GoHome/plugin_loader"
 	"github.com/kkamperschroer/GoHome/plugin_server"
+	"github.com/kkamperschroer/GoHome/rules_engine"
 	"github.com/pivotal-golang/lager"
 	"time"
 )
@@ -45,6 +46,18 @@ func NewGoHome(config *config.Config, logger lager.Logger) (GoHome, error) {
 
 	if err != nil {
 		logger.Error("Error starting up plugin server", err)
+		return nil, err
+	}
+
+	rulesEngine, err := rules_engine.NewRulesEngine(config, logger, plugins)
+	if err != nil {
+		logger.Error("Error creating rules engine", err)
+		return nil, err
+	}
+
+	err = rulesEngine.Start()
+	if err != nil {
+		logger.Error("Error starting rules engine", err)
 		return nil, err
 	}
 

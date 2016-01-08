@@ -40,3 +40,18 @@ v0.2 Requirements
 v0.3 Requirements
 - Config file-ize everything
 
+
+
+Plugin Server
+- Each plugin requires a server that can handle RPC calls? Hmmm... Need to rediscover this. I can't remember.
+
+
+After loading all the plugins there needs to be some creation of the event loop/rule engine
+
+- Rule engine - 
+for each rule
+	- create each action in the actions array (returns a func that returns an interface{})
+	- create each condition in the conditions array (returns a func that returns a bool)
+	- create the event and begin the "poll" process in a goroutine, and pass the conditions func array and actions func array
+	- create a rule which takes that event (which contains the other things)
+
